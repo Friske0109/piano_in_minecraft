@@ -18,6 +18,13 @@ execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano]
 ピアノ音源を聞くには、先ほど入れたリソースパックを適用してください。
 
 
+--othersファイルについて--
+othersファイルの中には、jsonを自動演奏コマンドに変換するツールが入っています。
+↓ midiデータをjson形式に変換するにはこちらのサイトが便利です。
+https://www.visipiano.com/midi-to-json-converter/
+
+
+
 
 --USAGE--
 
