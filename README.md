@@ -1,6 +1,7 @@
 # piano_in_minecraft
 
 --使い方--
+
 datapack     : "datapack"を丸ごと、minecraftのsaves内の、datapacksフォルダに入れてください。
                ファイル名はわかりやすいものに変更してもらって構いません。
                
@@ -18,7 +19,8 @@ execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano]
 
 
 
---USAGE-
+--USAGE--
+
 datapack     : Put the whole "datapack" into the "datapacks" folder in the .minecraft/saves.
                You may rename the file to something more descriptive.
                
