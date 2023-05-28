@@ -10,7 +10,7 @@ resourcepack : "resourcepack"を丸ごと、minecraftのreourcepacksフォルダ
                
 ２つとも入れたら、コマンドブロックに
 
-execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano]
+execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano
 
 と入力して実行すると、コマンドブロックの２マス上にピアノが召喚されます。
 各鍵盤を右クリックすることで音が鳴ります。
