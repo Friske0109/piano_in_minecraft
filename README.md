@@ -16,6 +16,9 @@ execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano
 各鍵盤を右クリックすることで音が鳴ります。
 
 ピアノ音源を聞くには、先ほど入れたリソースパックを適用してください。
+自分で演奏する場合はresourcepack
+自動演奏する場合はresourcepack2
+を適用してください。
 
 
 --othersファイルについて--
