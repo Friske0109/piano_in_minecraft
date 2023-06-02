@@ -4256,3 +4256,4 @@ execute if score cul_idol cul_piano matches 1228 run scoreboard players set cul_
 execute at @a run execute if score cul_idol cul_piano matches 1228 run playsound minecraft:block.note_block.bass master @p ~ ~ ~ 0.5770780772330776 0.84
 execute if score cul_idol cul_piano matches 1..2016 run schedule function cul:piano/music/idol 1t
 execute if score cul_idol cul_piano matches 2017.. run scoreboard players reset cul_idol cul_piano
+ 
