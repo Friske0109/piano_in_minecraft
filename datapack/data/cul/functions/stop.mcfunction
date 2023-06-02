@@ -1,2 +1,1 @@
-scoreboard players reset cul_kyu cul_piano
 scoreboard players reset cul_babel_f cul_piano
