@@ -33,6 +33,11 @@ function cul:piano/music/ファイル名
 https://www.visipiano.com/midi-to-json-converter/
 
 
+G4mespeed mod  
+https://www.curseforge.com/minecraft/mc-mods/g4mespeed
+
+
+
 
 --USAGE--
 
