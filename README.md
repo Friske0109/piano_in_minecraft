@@ -1,23 +1,23 @@
 # piano_in_minecraft
 
---使い方--
+**--使い方--**
 
-datapack     : "datapack"を丸ごと、minecraftのsaves内の、datapacksフォルダに入れてください。
+**datapack**     : "datapack"を丸ごと、minecraftのsaves内の、datapacksフォルダに入れてください。
                ファイル名はわかりやすいものに変更してもらって構いません。
                
-resourcepack : "resourcepack"を丸ごと、minecraftのreourcepacksフォルダに入れてください。
+**resourcepack** : "resourcepack"を丸ごと、minecraftのreourcepacksフォルダに入れてください。
                こちらもファイル名は自由です。
                
 ２つとも入れたら、コマンドブロックに
 
-execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano
+**execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano**
 
 と入力して実行すると、コマンドブロックの２マス上にピアノが召喚されます。
 各鍵盤を右クリックすることで音が鳴ります。
 
-ピアノ音源を聞くには、次のリソースパックを適用してください。
-自分で演奏する場合はresourcepack
-自動演奏する場合はresourcepack2
+ピアノ音源を聞くには、次のリソースパックを適用してください。  
+自分で演奏する場合は *resourcepack* 
+自動演奏する場合は  *resourcepack2*  
 を適用してください。
 
 
@@ -31,9 +31,6 @@ function cul:piano/music/ファイル名
 
 ↓midiからjsonの変換はこちらのサイトが便利です。
 https://www.visipiano.com/midi-to-json-converter/
-
-
-
 
 
 
