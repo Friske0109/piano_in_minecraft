@@ -29,7 +29,7 @@ json2mcfファイル内の json2mcf.exe を起動し、jsonファイルを読み
 function cul:piano/music/ファイル名
 
 
-↓midiからjsonの変換はこちらのサイトが便利です。
+↓midiからjsonの変換はこちらのサイトが便利です。  
 https://www.visipiano.com/midi-to-json-converter/
 
 
