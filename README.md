@@ -15,19 +15,21 @@ execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano
 と入力して実行すると、コマンドブロックの２マス上にピアノが召喚されます。
 各鍵盤を右クリックすることで音が鳴ります。
 
-ピアノ音源を聞くには、先ほど入れたリソースパックを適用してください。
+ピアノ音源を聞くには、次のリソースパックを適用してください。
 自分で演奏する場合はresourcepack
 自動演奏する場合はresourcepack2
 を適用してください。
 
 
---othersファイルについて--
+json2mcfファイル内の json2mcf.exe を起動し、jsonファイルを読み込むと json2mcf/outputにコマンドデータが出力されます。(*.mcfunction)
 
-othersファイルの中には、jsonを自動演奏コマンドに変換するツールが入っています。
-ソースコードはぐちゃぐちゃですが、多分これから調整します。
+変換されたファイルを、datapack/data/cul/functions/piano/music 内に入れると、自動演奏が可能になります。
+自動演奏の実行は次のコマンドでできます。
+
+function cul:piano/music/ファイル名
 
 
-↓ midiデータをjson形式に変換するにはこちらのサイトが便利です。
+↓midiからjsonの変換はこちらのサイトが便利です。
 https://www.visipiano.com/midi-to-json-converter/
 
 
