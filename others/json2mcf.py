@@ -82,18 +82,26 @@ def json_to_mcf(path,dirpath,trackname):
         output_file = open(dirpath, "w")
     #エラー処理
     except FileNotFoundError as FE:
-        messagebox.showinfo(title="complete",message= str(type(FE)) + "ファイルが見つかりません")
+        messagebox.showerror(title="complete",message= str(type(FE)) + "ファイルが見つかりません")
         #stop()
 
     table = open("table2.json")
     json_l = json.load(file)
     json_table = json.load(table)
-
-    exchange_file(json_l,output_file,json_table,trackname)
+    try:
+        exchange_file(json_l,output_file,json_table,trackname)
+        messagebox.showinfo(title="complete",message="変換が完了しました")
+        file.close()
+        output_file.close()
+        table.close()
+    except:
+        messagebox.showerror(title="format error",message="ファイルのフォーマットが対応していない可能性があります")
+        file.close()
+        output_file.close()
+        table.close()
+        os.remove(dirpath)
     
-    file.close()
-    output_file.close()
-    table.close()
+    
 
 
 #rootウィンドウ設定
@@ -128,22 +136,26 @@ def file_select():
     path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
     filename = os.path.basename(path)
     trackname = (filename).split(".")[0]
-    dirpath = "result/" + trackname + ".mcfunction"
+    dirname = "output"
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+    dirpath = dirname + "/" + trackname + ".mcfunction"
 
     #選択したファイル名を表示
     entry_box.configure(state="normal")  #書き込み可に設定
+    entry_box.delete(0,tk.END)
     entry_box.insert(tk.END,filename)    #ファイル名を表示
     entry_box.configure(state="readonly")#読み取り用に再設定
 
 def exchanging():
     json_to_mcf(path,dirpath,trackname)
-    messagebox.showinfo(title="complete",message="変換が完了しました")
-    stop()
+    #stop()
 
 # ボタンの作成はButtonを使用する。commandにて実行関数を指定する。
 button = tk.Button(text="ファイルを選択", command=file_select)
 exchange_button = tk.Button(text="変換", command=exchanging)
-#button.place(x=100, y=100)
+exit_button = tk.Button(text="終了", command=stop)
+
 
 #エントリーボックス
 entry_box = tk.Entry(width=40,state="readonly") #読み込み専用に設定
@@ -156,6 +168,7 @@ chk.pack()
 button.pack()
 entry_box.pack()
 exchange_button.pack()
+exit_button.place(x=420, y=260)
 
 
 
