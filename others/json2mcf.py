@@ -4,14 +4,28 @@ from tkinter import filedialog
 from tkinter import messagebox
 import os
 
+def get_time(time_list,timestamp):
+    for i in range(len(time_list)):
+        if timestamp >= time_list[i]:
+            d = i
+    return d
+
+def no_mod_tick(time_list,bpm_list,tick_list,timestamp):
+    t = get_time(time_list,timestamp) #どのbpm区間に存在しているか
+    r = (timestamp-time_list[t]) * (150/bpm_list[t]) #そのbpm区間開始からのtick数
+    return round(tick_list[t-1] + r) #timestampを更新
+
 def exchange_file(json_l,output_file,json_table,trackname,stop_file):
     
     mul = 8.0 #分解能 mul*2分音符まで対応
     space = int(mul*3) #開始時、終了時の猶予
 
-    time_list = []
+    time_list = [] #mod環境でのbpm変化tick
     bpm_list = []
     tps_list = []
+
+    #modなし環境でのbpm変化tick
+    tick_list = []
 
     #BPM変化を計算 
     for tempo in json_l["tempo"]:
@@ -21,6 +35,12 @@ def exchange_file(json_l,output_file,json_table,trackname,stop_file):
         time_list.append(time)
         bpm_list.append(bpm)
         tps_list.append(tps)
+    
+    sec=space
+    for d in range(len(time_list)-1):
+        diff = time_list[d+1] - time_list[d]
+        sec += diff/tps_list[d] * 20
+        tick_list.append(sec)
     
     #modが導入されているならtpsコマンドを導入
     is_mod_introdused = bln.get()
@@ -36,6 +56,13 @@ def exchange_file(json_l,output_file,json_table,trackname,stop_file):
         #BPM変化に伴うtps変化の適用
         for i in range(len(time_list)):
             output_file.write("execute if score cul_" + trackname + " cul_piano matches " + str(int(time_list[i])) + " run tps " + str(round(tps_list[i], 1)) + "\n")
+    
+    """
+    この時点で、time_listにはBPM変化のタイミング(tick)、bpm_listにはBPMが入っている
+    mul=8.0のときBPM=150とすると、分解能は8.0 * 150/BPM
+    timestampを絶対時間(秒数)に変換 → tickに変換
+    """
+
 
     #bpmとtpsを初期化
     bpm = bpm_list[0]
@@ -50,9 +77,14 @@ def exchange_file(json_l,output_file,json_table,trackname,stop_file):
                 note_name = str(note["name"]).lower().replace('#', 's')
                 note_midi = note["midi"]
                 timestamp = int(note["time"] * mul + space)
+
+                #modなしのtick計算
+                if not is_mod_introdused:
+                    timestamp = no_mod_tick(time_list,bpm_list,tick_list,timestamp) #timestampを更新
+
                 if finish < timestamp:
                     finish = timestamp
-                for j in range(len(time_list)-1): #bpm変化を適応
+                for j in range(len(time_list)-1): #bpm変化を適応(mod環境)
                     if timestamp == time_list[j]:
                         bpm = bpm_list[j]
                         tps = tps_list[j]
