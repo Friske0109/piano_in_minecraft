@@ -4,10 +4,10 @@ from tkinter import filedialog
 from tkinter import messagebox
 import os
 
-def exchange_file(json_l,output_file,json_table,trackname):
+def exchange_file(json_l,output_file,json_table,trackname,stop_file):
     
-    mul = 8.0 #mul*2分音符まで対応
-    space = 24 #開始時、終了時の猶予
+    mul = 8.0 #分解能 mul*2分音符まで対応
+    space = int(mul*3) #開始時、終了時の猶予
 
     time_list = []
     bpm_list = []
@@ -15,7 +15,7 @@ def exchange_file(json_l,output_file,json_table,trackname):
 
     #BPM変化を計算 
     for tempo in json_l["tempo"]:
-        bpm = int(tempo["bpm"])
+        bpm = tempo["bpm"]
         time = (tempo["seconds"] * mul) + space
         tps = 20*(bpm/150) * (mul/8.0)
         time_list.append(time)
@@ -25,8 +25,15 @@ def exchange_file(json_l,output_file,json_table,trackname):
     #modが導入されているならtpsコマンドを導入
     is_mod_introdused = bln.get()
     finish = 0
-    output_file.write("scoreboard players add cul_" + trackname + " cul_piano 1\n")
+    output_file.write("scoreboard players add cul_" + trackname + " cul_piano 1\n")#ループ用
+
+    stop_file.write("scoreboard players reset cul_" + trackname + " cul_piano\n")#停止用
+    stop_file.write("schedule clear cul:piano/music/" + trackname + "\n")
+
     if is_mod_introdused:
+        stop_file.write("tps 20\n")#停止用
+
+        #BPM変化に伴うtps変化の適用
         for i in range(len(time_list)):
             output_file.write("execute if score cul_" + trackname + " cul_piano matches " + str(int(time_list[i])) + " run tps " + str(round(tps_list[i], 1)) + "\n")
 
@@ -74,12 +81,15 @@ def exchange_file(json_l,output_file,json_table,trackname):
 
     output_file.write("execute if score cul_" + trackname + " cul_piano matches 1.." + str(finish + space) + " run schedule function cul:piano/music/" + trackname +" 1t\n")
     output_file.write("execute if score cul_" + trackname + " cul_piano matches " + str(finish + space + 1) + ".. run scoreboard players reset cul_" + trackname +" cul_piano\n")
+    if is_mod_introdused:
+        output_file.write("execute if score cul_" + trackname + " cul_piano matches " + str(finish + space + 1) + ".. run tps 20\n")
 
 
 def json_to_mcf(path,dirpath,trackname):
     try:
         file = open(path, "r")
         output_file = open(dirpath, "w")
+        stop_file = open(stoppath, "w")
     #エラー処理
     except FileNotFoundError as FE:
         messagebox.showerror(title="complete",message= str(type(FE)) + "ファイルが見つかりません")
@@ -89,7 +99,7 @@ def json_to_mcf(path,dirpath,trackname):
     json_l = json.load(file)
     json_table = json.load(table)
     try:
-        exchange_file(json_l,output_file,json_table,trackname)
+        exchange_file(json_l,output_file,json_table,trackname,stop_file)
         messagebox.showinfo(title="complete",message="変換が完了しました")
         file.close()
         output_file.close()
@@ -124,13 +134,14 @@ label = tk.Label(root, text= "読み込むjsonファイルを選択してくだ�
 path = ""
 trackname = ""
 dirpath = ""
+stoppath = ""
 
 def stop():
     root.destroy()
 
 # ボタンクリック時に呼び出す関数を定義
 def file_select():
-    global path,trackname,dirpath
+    global path,trackname,dirpath,stoppath
     typ = [('Jsonファイル','*.json')]
     dir = 'C:\\pg'
     path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
@@ -140,6 +151,7 @@ def file_select():
     if not os.path.exists(dirname):
         os.makedirs(dirname)
     dirpath = dirname + "/" + trackname + ".mcfunction"
+    stoppath = dirname + "/" + trackname + "_stop.mcfunction"
 
     #選択したファイル名を表示
     entry_box.configure(state="normal")  #書き込み可に設定
