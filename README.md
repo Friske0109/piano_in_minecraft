@@ -1,27 +1,28 @@
 # piano_in_minecraft
 
---使い方--
+**--使い方--**
 
-datapack     : "datapack"を丸ごと、minecraftのsaves内の、datapacksフォルダに入れてください。
+**datapack**     : "datapack"を丸ごと、minecraftのsaves内の、datapacksフォルダに入れてください。
                ファイル名はわかりやすいものに変更してもらって構いません。
                
-resourcepack : "resourcepack"を丸ごと、minecraftのreourcepacksフォルダに入れてください。
+**resourcepack** : "resourcepack"を丸ごと、minecraftのreourcepacksフォルダに入れてください。
                こちらもファイル名は自由です。
                
 ２つとも入れたら、コマンドブロックに
 
-execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano
+**execute positioned ~-1.15 ~0.8 ~0.3 run function cul:piano/new_piano**
 
 と入力して実行すると、コマンドブロックの２マス上にピアノが召喚されます。
 各鍵盤を右クリックすることで音が鳴ります。
 
-ピアノ音源を聞くには、次のリソースパックを適用してください。
-自分で演奏する場合はresourcepack
-自動演奏する場合はresourcepack2
+ピアノ音源を聞くには、次のリソースパックを適用してください。  
+自分で演奏する場合は *resourcepack* 
+自動演奏する場合は  *resourcepack2*  
 を適用してください。
 
 
-json2mcfファイル内の json2mcf.exe を起動し、jsonファイルを読み込むと json2mcf/outputにコマンドデータが出力されます。(*.mcfunction)
+json2mcfファイル内の json2mcf.exe を起動し、jsonファイルを読み込むと json2mcf/outputにコマンドデータが出力されます。(mcfunctionファイル)  
+一緒に出力される○○_stop.mcfunctionは、実行すると演奏を中断できます。  
 
 変換されたファイルを、datapack/data/cul/functions/piano/music 内に入れると、自動演奏が可能になります。
 自動演奏の実行は次のコマンドでできます。
@@ -29,10 +30,12 @@ json2mcfファイル内の json2mcf.exe を起動し、jsonファイルを読み
 function cul:piano/music/ファイル名
 
 
-↓midiからjsonの変換はこちらのサイトが便利です。
+↓midiからjsonの変換はこちらのサイトが便利です。  
 https://www.visipiano.com/midi-to-json-converter/
 
 
+G4mespeed mod  
+https://www.curseforge.com/minecraft/mc-mods/g4mespeed
 
 
 
