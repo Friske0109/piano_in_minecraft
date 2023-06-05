@@ -23,6 +23,7 @@
 
 json2mcfファイル内の json2mcf.exe を起動し、jsonファイルを読み込むと json2mcf/outputにコマンドデータが出力されます。(mcfunctionファイル)  
 一緒に出力される○○_stop.mcfunctionは、実行すると演奏を中断できます。  
+modが導入されていない場合、無理やり20tpsに押し込むことになるので、リズムが崩れる場合があります。   
 
 変換されたファイルを、datapack/data/cul/functions/piano/music 内に入れると、自動演奏が可能になります。
 自動演奏の実行は次のコマンドでできます。
