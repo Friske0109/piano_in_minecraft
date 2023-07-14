@@ -1,3 +1,7 @@
+#コードの構成が終わってるからいつかなおす
+#あとなんか速度がおかしくなるやつも
+
+
 import json
 import tkinter as tk
 from tkinter import filedialog
@@ -26,7 +30,7 @@ class json2mcf():
             self.input_file = open(self.path, "r")
             self.output_file = open(self.dirpath, "w")
             self.stop_file = open(self.stoppath, "w")
-            self.table = open("table2.json")
+            self.table = open("./table2.json")
 
             #jsonを辞書化
             self.json_l = json.load(self.input_file)
@@ -128,9 +132,9 @@ class json2mcf():
         self.current_bpm = self.bpm_list[0]
         self.current_tps = self.tps_list[0]
         
-        for i in range(16):
-            if self.json_l['tracks'][i]['notes'] != []:
-                self.track_note = self.json_l['tracks'][i]['notes']
+        for track in self.json_l['tracks']:
+            if track['notes'] != []:
+                self.track_note = track['notes']
                 for note in self.track_note:
                     self.note_name = str(note["name"]).lower().replace('#', 's')
                     self.note_midi = note["midi"]
@@ -156,7 +160,7 @@ class json2mcf():
                     velocity = str((note["velocity"] ** 2) * 11/(((self.note_midi%12)**2)/11+11))
                     duration = note["duration"]
                     inst_d = (60.0 / self.current_bpm) * duration
-                    animation_time = str(int(inst_d * self.current_tps) + 1)
+                    animation_time = str(int(inst_d * self.current_tps) + 4)
                     for tb in range(88):
                         if self.json_table["table"][tb]["midi"] == self.note_midi:
                             if inst_d < 0.15:
