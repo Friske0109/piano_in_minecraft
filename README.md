@@ -21,7 +21,7 @@
 を適用してください。
 
 
-json2mcfファイル内の json2mcf.exe を起動し、jsonファイルを読み込むと json2mcf/outputにコマンドデータが出力されます。(mcfunctionファイル)  
+distファイル内の midi2mcf.exe を起動し、mifiファイルを読み込むと dist/outputにコマンドデータが出力されます。(mcfunctionファイル)  
 一緒に出力される○○_stop.mcfunctionは、実行すると演奏を中断できます。  
 modが導入されていない場合、無理やり20tpsに押し込むことになるので、リズムが崩れる場合があります。   
 
@@ -29,10 +29,6 @@ modが導入されていない場合、無理やり20tpsに押し込むことに
 自動演奏の実行は次のコマンドでできます。
 
 function cul:piano/music/ファイル名
-
-
-↓midiからjsonの変換はこちらのサイトが便利です。  
-https://www.visipiano.com/midi-to-json-converter/
 
 
 G4mespeed mod  

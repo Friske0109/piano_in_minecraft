@@ -15,8 +15,8 @@ class Midi2Mcf():
         self.trackname = (self.filename).split(".")[0]
         if not os.path.exists("output"):
             os.makedirs("output")
-        self.dirpath ="output/" + self.trackname + ".mcfunction"
-        self.stoppath ="output/" + self.trackname + "_stop.mcfunction"
+        self.dirpath ="./output/" + self.trackname + ".mcfunction"
+        self.stoppath ="./output/" + self.trackname + "_stop.mcfunction"
         
         try:
             self.load_files()
@@ -35,7 +35,7 @@ class Midi2Mcf():
 
     def load_files(self):
         self.file = mido.MidiFile(self.path)
-        self.table = json.load(open("table2.json"))
+        self.table = json.load(open("./table2.json"))
         self.output = open(self.dirpath,"w")
         self.output_stop = open(self.stoppath,"w")
 
@@ -155,11 +155,12 @@ class Application():
 
     def exchanging(self):
         m2m = Midi2Mcf(self.path)
-        try:
-            m2m.exchange()
-            messagebox.showinfo(title="complete",message="変換が完了しました")
-        except:
-            messagebox.showerror(title="format error",message="フォーマットが対応していない可能性があります")
+        if not (m2m.file == None):
+            try:
+                m2m.exchange()
+                messagebox.showinfo(title="complete",message="変換が完了しました")
+            except:
+                messagebox.showerror(title="format error",message="フォーマットが対応していない可能性があります")
 
 if __name__ == "__main__":
     Application()
